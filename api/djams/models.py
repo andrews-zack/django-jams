@@ -1,4 +1,5 @@
 from django.db import models
+from django.core.validators import MaxValueValidator, MinValueValidator
 
 class Artist(models.Model):
     name = models.CharField(max_length=50, null=False, blank=False, unique=True)
@@ -15,6 +16,7 @@ class Song(models.Model):
     plays = models.IntegerField(null=False, blank=False)
     album = models.ForeignKey("Album", on_delete=models.PROTECT)
     genre = models.ForeignKey("Genre", on_delete=models.PROTECT)
+    # playlists = models.ManyToManyField("Playlist")
     created_at = models.DateTimeField()         # Look up params
     updated_at = models.DateTimeField()         # Look up params
 
@@ -40,4 +42,17 @@ class Keyword(models.Model):
     title = models.CharField(max_length=50, null=True, blank=True)
     created_at = models.DateTimeField()         # Look up params
     updated_at = models.DateTimeField()
+
+class PlaylistSong(models.Model):
+    song = models.ForeignKey("Song", on_delete=models.PROTECT)
+    playlist = models.ForeignKey("Playlist", on_delete=models.PROTECT)
+    track_num = models.PositiveIntegerField()
+
+class SongArtist(models.Model):
+    artist = models.ForeignKey("Artist", on_delete=models.PROTECT)
+    song = models.ForeignKey("Song", on_delete=models.PROTECT)
+
+class PlaylistKeyword(models.Model):
+    playlist = models.ForeignKey("Playlist", on_delete=models.PROTECT)
+    keyword = models.ForeignKey("Keyword", on_delete=models.PROTECT)
 
