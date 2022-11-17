@@ -29,28 +29,28 @@ class ArtistViewSet(ModelViewSet):
 class SongViewSet(ModelViewSet):
     queryset = Song.objects.all()
     serializer_class = SongSerializer
-    http_method_names = ['get', 'post']
+    http_method_names = ['get', 'post', 'put', 'delete']
 
 
 class AlbumViewSet(ModelViewSet):
     queryset = Album.objects.all()
     serializer_class = AlbumSerializer
-    http_method_names = ['get', 'post']
+    http_method_names = ['get', 'post', 'put', 'delete']
 
 
 class GenreViewSet(ModelViewSet):
     queryset = Genre.objects.all()
     serializer_class = GenreSerializer
-    http_method_names = ['get', 'post']
+    http_method_names = ['get', 'post', 'put', 'delete']
 
 
 class PlaylistViewSet(ModelViewSet):
     queryset = Playlist.objects.all()
     serializer_class = PlaylistSerializer
-    http_method_names = ['get', 'post']
+    http_method_names = ['get', 'post', 'put', 'delete']
 
 
 class KeywordViewSet(ModelViewSet):
     queryset = Keyword.objects.all()
     serializer_class = KeywordSerializer
-    http_method_names = ['get', 'post']
+    http_method_names = ['get', 'post', 'put', 'delete']

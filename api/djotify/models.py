@@ -15,18 +15,18 @@ class Song(models.Model):
     explicit = models.BooleanField(null=False, blank=False)         # Look up params
     plays = models.IntegerField(null=False, blank=False)
     album = models.ForeignKey("Album", related_name="songs", on_delete=models.PROTECT)
-    genre = models.ForeignKey("Genre", on_delete=models.PROTECT)
+    genre = models.ForeignKey("Genre", related_name="songs", on_delete=models.PROTECT)
     # playlists = models.ManyToManyField("Playlist")
-    created_at = models.DateTimeField(auto_now_add=True)         # Look up params
-    updated_at = models.DateTimeField(auto_now=True)         # Look up params
+    created_at = models.DateTimeField(auto_now_add=True, null=True)         # Look up params
+    updated_at = models.DateTimeField(auto_now=True, null=True)         # Look up params
 
 class Album(models.Model):
     title = models.CharField(max_length=50, null=False, blank=False)
     year_released = models.DateField(null=False, blank=False)     # Look up params
-    is_original = models.BooleanField(null=False, blank=False)
+    is_original = models.BooleanField(default=True, blank=False)
     artist = models.ForeignKey("Artist", on_delete=models.PROTECT)
-    created_at = models.DateTimeField(auto_now_add=True)         # Look up params
-    updated_at = models.DateTimeField(auto_now=True)
+    created_at = models.DateTimeField(auto_now_add=True, null=True)         # Look up params
+    updated_at = models.DateTimeField(auto_now=True, null=True)
 
 class Genre(models.Model):
     name = models.CharField(max_length=50, null=False, blank=False)
