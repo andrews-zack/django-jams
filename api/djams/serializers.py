@@ -26,7 +26,7 @@ class SongSerializer(serializers.ModelSerializer):
         fields = "__all__"
     
     def create(self, validated_data):
-        album = validated_data.pop('category')
+        album = validated_data.pop('album')
         genre = validated_data.pop('genre')
         obj_album, created_album = Album.objects.get_or_create(title=album['title'])
         obj_genre, created_genre = Genre.objects.get_or_create(name=genre['name'])
