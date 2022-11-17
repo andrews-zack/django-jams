@@ -55,4 +55,3 @@ class SongArtist(models.Model):
 class PlaylistKeyword(models.Model):
     playlist = models.ForeignKey("Playlist", on_delete=models.PROTECT)
     keyword = models.ForeignKey("Keyword", on_delete=models.PROTECT)
-

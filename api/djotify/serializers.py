@@ -18,6 +18,30 @@ class ArtistSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 
+class GenreSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Genre
+        fields = "__all__"
+
+
+class KeywordSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Keyword
+        fields = "__all__"
+
+
+class AlbumSerializer(serializers.ModelSerializer):
+    artist = ArtistSerializer()
+    class Meta:
+        model = Album
+        fields = "__all__"
+
+    def create(self, validated_data):
+        artist = validated_data.pop('artist')
+        obj, created = Artist.objects.get_or_create(name=artist['name'])
+        album = Album.objects.create(**validated_data, artist=obj)
+
+
 class SongSerializer(serializers.ModelSerializer):
     album = AlbumSerializer()
     genre = GenreSerializer()
@@ -34,24 +58,6 @@ class SongSerializer(serializers.ModelSerializer):
         return song
 
 
-class AlbumSerializer(serializers.ModelSerializer):
-    artist = ArtistSerializer()
-    class Meta:
-        model = Album
-        fields = "__all__"
-
-    def create(self, validated_data):
-        artist = validated_data.pop('artist')
-        obj, created = Artist.objects.get_or_create(name=artist['name'])
-        album = Album.objects.create(**validated_data, artist=obj)
-
-
-class GenreSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Genre
-        fields = "__all__"
-
-
 class PlaylistSerializer(serializers.ModelSerializer):
     song = SongSerializer()
     class Meta:
@@ -62,9 +68,3 @@ class PlaylistSerializer(serializers.ModelSerializer):
         song = validated_data.pop('song')
         obj, created = Song.objects.get_or_create(title=song['title'])
         playlist = Playlist.objects.create(**validated_data, song=obj)
-
-
-class KeywordSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Keyword
-        fields = "__all__"

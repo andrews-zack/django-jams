@@ -54,4 +54,3 @@ class KeywordViewSet(ModelViewSet):
     queryset = Keyword.objects.all()
     serializer_class = KeywordSerializer
     http_method_names = ['get', 'post']
-
