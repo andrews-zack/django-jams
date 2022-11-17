@@ -23,7 +23,7 @@ from rest_framework.response import Response
 class ArtistViewSet(ModelViewSet):
     queryset = Artist.objects.all()
     serializer_class = ArtistSerializer
-    http_method_names = ['get', 'post']
+    http_method_names = ['get', 'post', 'put', 'delete']
 
 
 class SongViewSet(ModelViewSet):

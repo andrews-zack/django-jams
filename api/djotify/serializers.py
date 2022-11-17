@@ -15,23 +15,24 @@ from .models import (
 class ArtistSerializer(serializers.ModelSerializer):
     class Meta:
         model = Artist
-        fields = "__all__"
+        fields = ["id", "name", "listeners", "biography",]
 
 
 class GenreSerializer(serializers.ModelSerializer):
     class Meta:
         model = Genre
-        fields = "__all__"
+        fields = ["id", "name",]
 
 
 class KeywordSerializer(serializers.ModelSerializer):
     class Meta:
         model = Keyword
-        fields = "__all__"
+        fields = ["id", "title",]
 
 
 class AlbumSerializer(serializers.ModelSerializer):
     artist = ArtistSerializer()
+    songs = serializers.Serializer('SongSerializer', many=True, required=False)
     class Meta:
         model = Album
         fields = "__all__"
@@ -40,6 +41,7 @@ class AlbumSerializer(serializers.ModelSerializer):
         artist = validated_data.pop('artist')
         obj, created = Artist.objects.get_or_create(name=artist['name'])
         album = Album.objects.create(**validated_data, artist=obj)
+        return album
 
 
 class SongSerializer(serializers.ModelSerializer):
@@ -68,3 +70,4 @@ class PlaylistSerializer(serializers.ModelSerializer):
         song = validated_data.pop('song')
         obj, created = Song.objects.get_or_create(title=song['title'])
         playlist = Playlist.objects.create(**validated_data, song=obj)
+        return playlist
