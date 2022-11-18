@@ -5,7 +5,9 @@ from .views import (
     AlbumViewSet,
     GenreViewSet,
     PlaylistViewSet,
-    KeywordViewSet
+    KeywordViewSet,
+    PlaylistSongViewSet,
+    PlaylistKeywordViewSet
 )
 from rest_framework import routers
 
@@ -17,7 +19,8 @@ router.register(r'albums', AlbumViewSet)
 router.register(r'genres', GenreViewSet)
 router.register(r'playlists', PlaylistViewSet)
 router.register(r'keywords', KeywordViewSet)
-
+router.register(r'playlists_songs', PlaylistSongViewSet)
+router.register(r'playlists_keywords', PlaylistKeywordViewSet)
 
 urlpatterns = [
     path('', include(router.urls))

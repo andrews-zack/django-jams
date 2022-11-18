@@ -31,3 +31,19 @@ class GenreListingField(serializers.RelatedField):
 
     def to_internal_value(self, data):
         return Genre.objects.get(name=data)
+
+
+class PlaylistListingField(serializers.RelatedField):
+    def to_representation(self, instance):
+        return instance.title
+
+    def to_internal_value(self, data):
+        return Playlist.objects.get(title=data)
+
+
+class KeywordListingField(serializers.RelatedField):
+    def to_representation(self, instance):
+        return instance.title
+
+    def to_internal_value(self, data):
+        return Keyword.objects.get(title=data)

@@ -5,9 +5,9 @@ class Artist(models.Model):
     name = models.CharField(max_length=50, null=False, blank=True, unique=True)
     listeners = models.IntegerField(null=True, blank=True)
     biography = models.TextField(null=True, blank=True)          # Look up params
-    image = models.URLField()           # Look up params
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
+    image = models.URLField(null=True)           # Look up params
+    created_at = models.DateTimeField(auto_now_add=True, null=True)
+    updated_at = models.DateTimeField(auto_now=True, null=True)
 
 class Song(models.Model):
     title = models.CharField(max_length=100, null=False, blank=False)
@@ -22,9 +22,9 @@ class Song(models.Model):
 
 class Album(models.Model):
     title = models.CharField(max_length=50, null=False, blank=False)
-    year_released = models.DateField(null=False, blank=False)     # Look up params
+    year_released = models.DateField(null=False, blank=True)     # Look up params
     is_original = models.BooleanField(default=True, blank=False)
-    artist = models.ForeignKey("Artist", on_delete=models.PROTECT)
+    artist = models.ForeignKey("Artist", related_name="albums", on_delete=models.PROTECT)
     created_at = models.DateTimeField(auto_now_add=True, null=True)         # Look up params
     updated_at = models.DateTimeField(auto_now=True, null=True)
 
@@ -55,3 +55,17 @@ class SongArtist(models.Model):
 class PlaylistKeyword(models.Model):
     playlist = models.ForeignKey("Playlist", on_delete=models.PROTECT)
     keyword = models.ForeignKey("Keyword", on_delete=models.PROTECT)
+
+
+
+
+
+
+
+
+
+# {
+#   "name": "Tyler Childers",
+#   "listeners": 5877592,
+#   "biography": "Hailing fro the Appalachian Mountains in Kentucky, Tyler Childers is part of a wave of 2010s Americana artists who prize authenticity both in their songs and sound. Sonically, he borrows heavily from the weathered, ornery, progressive country records of the 1970s."
+# }

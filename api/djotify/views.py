@@ -7,7 +7,9 @@ from .models import (
     Album,
     Genre,
     Playlist,
-    Keyword
+    Keyword,
+    PlaylistSong,
+    PlaylistKeyword
 )
 from .serializers import (
     ArtistSerializer,
@@ -15,7 +17,9 @@ from .serializers import (
     AlbumSerializer,
     GenreSerializer,
     PlaylistSerializer,
-    KeywordSerializer
+    KeywordSerializer,
+    PlaylistSongSerializer,
+    PlaylistKeywordSerializer
 )
 from rest_framework.response import Response
 
@@ -53,4 +57,16 @@ class PlaylistViewSet(ModelViewSet):
 class KeywordViewSet(ModelViewSet):
     queryset = Keyword.objects.all()
     serializer_class = KeywordSerializer
+    http_method_names = ['get', 'post', 'put', 'delete']
+
+
+class PlaylistSongViewSet(ModelViewSet):
+    queryset = PlaylistSong.objects.all()
+    serializer_class = PlaylistSongSerializer
+    http_method_names = ['get', 'post', 'put', 'delete']
+
+
+class PlaylistKeywordViewSet(ModelViewSet):
+    queryset = PlaylistKeyword.objects.all()
+    serializer_class = PlaylistKeywordSerializer
     http_method_names = ['get', 'post', 'put', 'delete']

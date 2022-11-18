@@ -14,14 +14,14 @@ from .fields import *
 
 
 class ArtistSerializer(serializers.ModelSerializer):
-    albums = AlbumListingField(many=True, queryset=Album.objects.all())
+    albums = AlbumListingField(many=True, queryset=Album.objects.all(), required=False)
     class Meta:
         model = Artist
         fields = ["id", "name", "listeners", "biography", "albums",]
 
 
 class GenreSerializer(serializers.ModelSerializer):
-    songs = SongListingField(many=True, queryset= Song.objects.all())
+    songs = SongListingField(many=True, queryset=Song.objects.all(), required=False)
     class Meta:
         model = Genre
         fields = ["id", "name", "songs",]
@@ -34,7 +34,7 @@ class KeywordSerializer(serializers.ModelSerializer):
 
 
 class AlbumSerializer(serializers.ModelSerializer):
-    artist = ArtistListingField(read_only=True)
+    artist = ArtistListingField(read_only=True, required=False)
     songs = SongListingField(many=True, read_only=True)
     class Meta:
         model = Album
@@ -64,13 +64,29 @@ class SongSerializer(serializers.ModelSerializer):
 
 
 class PlaylistSerializer(serializers.ModelSerializer):
-    songs = SongListingField(many=True, read_only=True)
+    songs = SongListingField(many=True, queryset=Song.objects.all(), required=False)
     class Meta:
         model = Playlist
-        fields = "__all__"
+        fields = ["id", "title", "songs"]
 
     # def create(self, validated_data):
     #     song = validated_data.pop('song')
     #     obj, created = Song.objects.get_or_create(title=song['title'])
     #     playlist = Playlist.objects.create(**validated_data, song=obj)
     #     return playlist
+
+
+class PlaylistSongSerializer(serializers.ModelSerializer):
+    songs = SongListingField(many=True, queryset=Song.objects.all(), required=False)
+    playlists = PlaylistListingField(queryset=Playlist.objects.all(), required=False)
+    class Meta:
+        model = PlaylistSong
+        fields = "__all__"
+
+
+class PlaylistKeywordSerializer(serializers.ModelSerializer):
+    playlists = PlaylistListingField(queryset=Playlist.objects.all(), required=False)
+    keywords = KeywordListingField(queryset=Playlist.objects.all(), required=False)
+    class Meta:
+        model = PlaylistKeyword
+        fields = "__all__"
