@@ -68,11 +68,19 @@ class SongSerializer(serializers.ModelSerializer):
 
 
 class PlaylistSerializer(serializers.ModelSerializer):
-    songs = SongListingField(many=True, queryset=Song.objects.all(), required=False)
+    songs = serializers.SerializerMethodField()
     
     class Meta:
         model = Playlist
         fields = ["id", "title", "songs"]
+
+    def get_songs(self, obj):
+        playlist = obj.id
+        songs = PlaylistSong.objects.filter(playlist=playlist)
+        playlist_tracks = []
+        for song in songs:
+            playlist_tracks.append(f"{song.song.title} by: {song.song.album.artist.name}")
+        return playlist_tracks
 
     # def create(self, validated_data):
     #     song = validated_data.pop('song')
