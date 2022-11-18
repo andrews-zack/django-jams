@@ -22,6 +22,7 @@ from .serializers import (
     PlaylistKeywordSerializer
 )
 from rest_framework.response import Response
+from rest_framework import filters
 
 
 class ArtistViewSet(ModelViewSet):
@@ -34,6 +35,8 @@ class SongViewSet(ModelViewSet):
     queryset = Song.objects.all()
     serializer_class = SongSerializer
     http_method_names = ['get', 'post', 'put', 'delete']
+    filter_backends = [filters.OrderingFilter]
+    ordering_fields = ['plays', 'length']
 
 
 class AlbumViewSet(ModelViewSet):

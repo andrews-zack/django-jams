@@ -57,15 +57,3 @@ class PlaylistKeyword(models.Model):
     keyword = models.ForeignKey("Keyword", on_delete=models.PROTECT)
 
 
-
-
-
-
-
-
-
-# {
-#   "name": "Tyler Childers",
-#   "listeners": 5877592,
-#   "biography": "Hailing fro the Appalachian Mountains in Kentucky, Tyler Childers is part of a wave of 2010s Americana artists who prize authenticity both in their songs and sound. Sonically, he borrows heavily from the weathered, ornery, progressive country records of the 1970s."
-# }
