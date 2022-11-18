@@ -38,10 +38,6 @@ class SongViewSet(ModelViewSet):
     filter_backends = [filters.OrderingFilter]
     ordering_fields = ['plays', 'length']
 
-    # @action(detail=True, methods=['get'])
-    # def sort_by_plays(self, request, pk=None):
-    #     plays = Song.filter
-
 
 class AlbumViewSet(ModelViewSet):
     queryset = Album.objects.all()

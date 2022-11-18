@@ -5,8 +5,8 @@ class SongListingField(serializers.RelatedField):
     def to_representation(self, instance):
         return instance.title
 
-    # def to_internal_value(self, data):
-    #     return Song.objects.get(name=data)
+    def to_internal_value(self, data):
+        return Song.objects.get(name=data)
 
 
 class ArtistListingField(serializers.RelatedField):
@@ -47,3 +47,5 @@ class KeywordListingField(serializers.RelatedField):
 
     def to_internal_value(self, data):
         return Keyword.objects.get(title=data)
+
+
